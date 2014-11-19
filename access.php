@@ -44,7 +44,14 @@ Require valid-user';
 		file_put_contents('.htpasswd', $password, FILE_APPEND);
 	}
 
-	unlink(__FILE__);
+	if (unlink(__FILE__)) {
+		
+		echo '.htaccess & .htpasswd has been created and access.php deleted.';
+	}
+	else {
+		
+		echo 'Error: access.php has not been deleted. Please verify your htaccess and htpasswd';
+	}
 
 }
 else {
