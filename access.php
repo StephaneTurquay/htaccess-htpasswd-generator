@@ -11,7 +11,7 @@ if (!empty($_POST['username']) && !empty($_POST['password'])) {
 	$htaccess_content = '
 AuthName "Protected Access"
 AuthType Basic
-AuthUserFile "' . dirname(__FILE__) . '.htpasswd"
+AuthUserFile "' . dirname(__FILE__) . '/.htpasswd"
 Require valid-user';
 		
 	if (file_exists('.htaccess')) {
