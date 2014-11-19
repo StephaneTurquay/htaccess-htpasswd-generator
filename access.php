@@ -20,13 +20,27 @@ Require valid-user';
 	
 		if (strpos($htaccess,'AuthUserFile') === false) {
 		
-			file_put_contents('.htaccess', $htaccess_content, FILE_APPEND);
+			if (file_put_contents('.htaccess', $htaccess_content, FILE_APPEND)) {
+
+				echo '<p style="color:green;">.htaccess was existing and settings added.</p>';
+			}
+			else {
+
+				echo '<p style="color:red;">Error: settings has not been added to .htaccess</p>';
+			}
 			
 		}
 		
 	} else {
 	
-		file_put_contents('.htaccess', $htaccess_content, FILE_APPEND);
+		if (file_put_contents('.htaccess', $htaccess_content, FILE_APPEND)) {
+
+			echo '<p style="color:green;">.htaccess has been created and settings added.</p>';
+		}
+		else {
+
+			echo '<p style="color:red;">Error: .htaccess has not been created and/or settings added.</p>';
+		}
 	}
 
 	if (file_exists('.htpasswd')) {
@@ -35,22 +49,36 @@ Require valid-user';
 		
 		if (strpos($htpasswd, $username) === false) {
 	    	
-	    	file_put_contents('.htpasswd', ' 
-'. $password, FILE_APPEND);
+	    	if (file_put_contents('.htpasswd', ' 
+'. $password, FILE_APPEND)) {
+
+	    		echo '<p style="color:green;">.htpasswd was existing and password added.</p>';
+
+	    	} else {
+
+	    		echo '<p style="color:red;">Error: password has not been added to .htpasswd</p>';
+	    	}
 		}
 	
 	} else {
 		
-		file_put_contents('.htpasswd', $password, FILE_APPEND);
+		if (file_put_contents('.htpasswd', $password, FILE_APPEND)) {
+
+			echo '<p style="color:green;">.htpasswd has been create and password added</p>';
+		
+		} else {
+
+			echo '<p style="color:red;">Error: .htpasswd has not been create and/or password has not been added.</p>';
+		}
 	}
 
 	if (unlink(__FILE__)) {
 		
-		echo '.htaccess & .htpasswd has been created and access.php deleted.';
+		echo '<p style="color:green;">access.php has been deleted.</p>';
 	}
 	else {
 		
-		echo 'Error: access.php has not been deleted. Please verify your htaccess and htpasswd';
+		echo '<p style="color:red;">Error: access.php has not been deleted.</p>';
 	}
 
 }
